@@ -9,6 +9,7 @@ Authors@R:
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 URL: https://github.com/nateybear/longhorn-rstata
+BugReports: https://github.com/nateybear/longhorn-rstata/issues
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
