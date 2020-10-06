@@ -2,40 +2,37 @@
 % Please edit documentation in R/testnl.R
 \name{testnl}
 \alias{testnl}
-\title{testnl}
+\title{Wald test of multiple hypotheses}
 \usage{
 testnl(model, ...)
 }
 \arguments{
 \item{model}{the result of a call to lm}
 
-\item{...}{one or more non-linear expressions}
+\item{...}{one or more (possibly non-linear) expressions}
 }
 \description{
-testnl
+Test linear and non-linear hypotheses of the coefficients of a fitted regression model.
 }
 \details{
 Jointly tests that the (non-linear) expressions in ... are all equal to zero.
-Use a variable name to refer to the coefficient associate with
+Use a variable name to refer to the coefficient associated with
 that variable, for instance \code{testnl(model, 2*age)} to test that
 twice the coefficient associated with age is equal to zero.
 Separate multiple expressions by commas, i.e. \code{testnl(model, 2*age, motheduc^2)}.
 For "weird" variable names, surround in backticks (see example).
 }
 \examples{
-# use the HTV.dta set from class
-require(foreign)
-htv = read.dta(file.choose())
-
 # fit a model with interations for illustration
-model = lm(educ ~ motheduc*fatheduc)
+model <- lm(mpg ~ hp * disp, data = datasets::mtcars)
 
-# first, test that motheduc = fatheduc
-testnl(model, motheduc - fatheduc)
+# first, test that hp = disp
+testnl(model, hp - disp)
 
-# then do a full f test (`motheduc:fatheduc` is the interaction term)
-testnl(model, motheduc, fatheduc, `motheduc:fatheduc`)
+# then do a full f test (`hp:disp` is the interaction term)
+testnl(model, hp, disp, `hp:disp`)
 
 # if you want to test the intercept, it's called (Intercept)
 testnl(model, sqrt(`(Intercept)`))
+
 }
