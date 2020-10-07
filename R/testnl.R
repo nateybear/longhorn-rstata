@@ -4,7 +4,7 @@
 #' @description
 #' Test linear and non-linear hypotheses of the coefficients of a fitted regression model.
 #'
-#'@details
+#' @details
 #' Jointly tests that the (non-linear) expressions in ... are all equal to zero.
 #' Use a variable name to refer to the coefficient associated with
 #' that variable, for instance \code{testnl(model, 2*age)} to test that
@@ -17,7 +17,7 @@
 #' @examples
 #' # fit a model with interations for illustration
 #' use(datasets::mtcars)
-#' regr(wt ~ hp*disp)
+#' regr(wt ~ hp * disp)
 #'
 #' # first, test that hp = disp
 #' testnl(hp - disp)
@@ -27,7 +27,6 @@
 #'
 #' # if you want to test the intercept, it's called (Intercept)
 #' testnl(sqrt(`(Intercept)`))
-#'
 #' @export
 testnl <- function(...) {
   model <- .model()
@@ -75,7 +74,6 @@ testnl <- function(...) {
   df <- length(fs)
   pval <- 1 - stats::pchisq(chisq_stat, df)
 
-  printf <- function(...) cat(sprintf(...))
   for (i in 1:length(fs)) {
     printf("(%d) %s = 0\n\testimate: %.2f\n\n", i, deparse(fs[[i]]), X[1, i])
   }

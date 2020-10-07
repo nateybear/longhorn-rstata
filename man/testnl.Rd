@@ -23,7 +23,7 @@ For "weird" variable names, surround in backticks (see example).
 \examples{
 # fit a model with interations for illustration
 use(datasets::mtcars)
-regr(wt ~ hp*disp)
+regr(wt ~ hp * disp)
 
 # first, test that hp = disp
 testnl(hp - disp)
@@ -33,5 +33,4 @@ testnl(hp, disp, `hp:disp`)
 
 # if you want to test the intercept, it's called (Intercept)
 testnl(sqrt(`(Intercept)`))
-
 }
