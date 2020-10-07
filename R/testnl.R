@@ -1,7 +1,10 @@
+#' @title
 #' Wald test of multiple hypotheses
 #'
+#' @description
 #' Test linear and non-linear hypotheses of the coefficients of a fitted regression model.
 #'
+#'@details
 #' Jointly tests that the (non-linear) expressions in ... are all equal to zero.
 #' Use a variable name to refer to the coefficient associated with
 #' that variable, for instance \code{testnl(model, 2*age)} to test that
@@ -9,24 +12,25 @@
 #' Separate multiple expressions by commas, i.e. \code{testnl(model, 2*age, motheduc^2)}.
 #' For "weird" variable names, surround in backticks (see example).
 #'
-#' @param model the result of a call to lm
 #' @param ...  one or more (possibly non-linear) expressions
 #'
 #' @examples
 #' # fit a model with interations for illustration
-#' model <- lm(mpg ~ hp * disp, data = datasets::mtcars)
+#' use(datasets::mtcars)
+#' regr(wt ~ hp*disp)
 #'
 #' # first, test that hp = disp
-#' testnl(model, hp - disp)
+#' testnl(hp - disp)
 #'
 #' # then do a full f test (`hp:disp` is the interaction term)
-#' testnl(model, hp, disp, `hp:disp`)
+#' testnl(hp, disp, `hp:disp`)
 #'
 #' # if you want to test the intercept, it's called (Intercept)
-#' testnl(model, sqrt(`(Intercept)`))
+#' testnl(sqrt(`(Intercept)`))
 #'
 #' @export
-testnl <- function(model, ...) {
+testnl <- function(...) {
+  model <- .model()
   eval_env <- parent.frame()
   vars <- names(stats::coef(model))
 

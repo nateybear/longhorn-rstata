@@ -4,11 +4,9 @@
 \alias{testnl}
 \title{Wald test of multiple hypotheses}
 \usage{
-testnl(model, ...)
+testnl(...)
 }
 \arguments{
-\item{model}{the result of a call to lm}
-
 \item{...}{one or more (possibly non-linear) expressions}
 }
 \description{
@@ -24,15 +22,16 @@ For "weird" variable names, surround in backticks (see example).
 }
 \examples{
 # fit a model with interations for illustration
-model <- lm(mpg ~ hp * disp, data = datasets::mtcars)
+use(datasets::mtcars)
+regr(wt ~ hp*disp)
 
 # first, test that hp = disp
-testnl(model, hp - disp)
+testnl(hp - disp)
 
 # then do a full f test (`hp:disp` is the interaction term)
-testnl(model, hp, disp, `hp:disp`)
+testnl(hp, disp, `hp:disp`)
 
 # if you want to test the intercept, it's called (Intercept)
-testnl(model, sqrt(`(Intercept)`))
+testnl(sqrt(`(Intercept)`))
 
 }
