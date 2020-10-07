@@ -17,9 +17,10 @@ Load either a specified dataset or browse your computer for a .dta file
 }
 \examples{
 # suggested usage: browse to a .dta file and use
-\dontrun{use()}
+\dontrun{
+use()
+}
 
 # alternative usage: re-use a dataframe already in R
 use(datasets::mtcars)
-
 }
