@@ -17,8 +17,3 @@ features as Stata does (robust standard errors, clustering, confidence levels...
 TODO: add more description to this. It will need to be one of the heavy lifters.
 TODO: create a class for this that extends lm functionality
 }
-\examples{
-use(datasets::mtcars)
-regr(mpg ~ wt + disp*cyl)
-
-}
