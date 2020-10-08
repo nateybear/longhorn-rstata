@@ -1,0 +1,114 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# An R Package for Stubborn Longhorn Economists
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+This is a package that attempts to mimic the full suite of Stata used in the ECO394M Econometrics class. The goal is to make the usage of this R package as close to Stata as possible, and to provide the tools so that the naive user can replicate Stata in a non-proprietary language. It is not necessarily the quickest way to do something in R. For that, dig into the code here on GitHub.
+
+## Installation
+
+This code is hosted on [GitHub](https://github.com/). Use the devtools package to download the package:
+
+```r
+# install.packages("devtools")
+devtools::install_github("nateybear/longhorn-rstata")
+```
+
+## Example
+
+Let's walk through an example using the HTV.DTA dataset from class. I will briefly run through all of the functions that are in the package. If you need more documentation on, for example, the `gen` function, then type `?gen` in your R console.
+
+### use
+
+The `use` command will load a dataset. Like Stata, rstata is meant to work with one dataset at a time. Let's browse our computer for the HTV.DTA file and load it:
+
+```{r eval=F}
+use()
+```
+```{r echo=FALSE}
+library(rstata)
+## basic example code
+trash <- capture.output(use(htv))
+suppressMessages(library(pryr))
+```
+
+Now we can use the rest of the rstata functions.Note that the dataset is attached to your R environment, so you can use the columns of HTV.DTA directly.
+
+```{r }
+summary(abil)
+```
+
+Note you can also browse through your Environment tab in RStudio and view the values in the dataset:
+
+![RStudio Environment Tab](./man/rstudio_env.png)
+
+### regr
+
+The `regr` command fits a model just like Stata. Note the tilde instead of the equal sign from Stata. Separate options with multiple commas.
+
+This will get filled out with more options as we go along. Have patience :)
+
+```{r}
+regr(educ ~ motheduc + fatheduc + abil)
+```
+
+### b_
+
+After the regression is run, you can access the fitted coefficients with `b_`, just like Stata's _b. Note that this is a function in R, so use parentheses:
+
+```{r}
+b_(motheduc)
+```
+
+### gen
+
+Use the `gen` function to create new variables and attach to your dataset. As an example, let's create a more complex model that has an interaction effect. Then we're going to compute the partial effect of mother's education on the dataset and plot a histogram.
+
+```{r}
+regr(educ ~ motheduc*fatheduc + abil)
+```
+
+This includes our first "weird" variable name. Make sure to surround the variable for the interaction term with a backtick (\`). Let's compute the partial effect now and plot a histogram:
+
+```{r}
+gen(pe_fatheduc = b_(motheduc) + fatheduc * b_(`motheduc:fatheduc`))
+hist(pe_fatheduc)
+```
+
+### testnl
+
+Test multiple (possibly non-linear) restrictions jointly. This uses the delta method to get the variance of non-linear functions of the beta parameters, and then computes a Wald chi-square test statistic.
+
+Note that this gives an exact answer for linear restrictions thanks to symbolic differentiation. Hence there is no loss of precision if you are testing something like a single linear restriction:
+
+```{r}
+# test that b_(motheduc) = 0. Compare the pval to the output of regr.
+# TODO this uses robust standard error, need to integrate with regr!!!
+testnl(motheduc)
+```
+
+You can do a partial F-test:
+```{r}
+testnl(`motheduc:fatheduc`, abil)
+```
+
+Or you can test a non-linear restriction:
+
+```{r}
+testnl(sqrt(motheduc^2 + fatheduc^2) - 1)
+```

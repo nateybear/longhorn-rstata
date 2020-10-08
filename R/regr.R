@@ -16,7 +16,7 @@
 #' regr(mpg ~ wt + disp*cyl)
 #'
 #' @export
-regr <- function(formula) { # TODO accept arguments for robust/cluster and
+regr <- function(formula) { # TODO accept arguments for robust/cluster and level
   model <- stats::lm(formula, data = .data())
   assign("model", model, envir = .rstata_env)
   print(summary(model)) # TODO quick and dirty, use class behavior
