@@ -29,6 +29,7 @@ regr <- function(formula) { # TODO accept arguments for robust/cluster and level
 #' @details
 #' After fitting model using regr, use this to extract point estimates of the
 #' coefficients like in Stata.
+#' @param v variable name, unquoted
 #' @example
 #' use(datasets::mtcars)
 #' regr(mpg ~ wt)

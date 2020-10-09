@@ -6,6 +6,9 @@
 \usage{
 b_(v)
 }
+\arguments{
+\item{v}{variable name, unquoted}
+}
 \description{
 Extract Coefficient Point Estimates
 }

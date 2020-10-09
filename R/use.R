@@ -7,7 +7,7 @@
 #'
 #' @param dataset optional, attach a dataframe already in your R workspace
 #'
-#' @examples
+#' @example
 #' # suggested usage: browse to a .dta file and use
 #' \dontrun{
 #' use()
