@@ -36,4 +36,4 @@ regr <- function(formula) { # TODO accept arguments for robust/cluster and level
 #'
 #'
 #' @export
-b_ <- function(v) stats::coef(.model())[deparse(substitute(v))]
+b_ <- function(v) stats::coef(.get("model"))[deparse(substitute(v))]
