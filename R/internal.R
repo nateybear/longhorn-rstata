@@ -31,7 +31,7 @@
 .set <- function(varname, value) assign(varname, value, envir = .rstata_env)
 .exists <- function(varname) exists(varname, envir = .rstata_env)
 .rm <- function(varname) {
-  if(.exists(varname)) {
+  if (.exists(varname)) {
     rm(varname, envir = .rstata_env)
   }
 }
