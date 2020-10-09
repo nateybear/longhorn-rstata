@@ -38,10 +38,7 @@
 # safe way to attach new dataset
 .attach <- function(dataset, data_name, clearModel = FALSE) {
   # if there is old dataset, detach it and keep things tidy
-  old_data <- .get("data_name", silent = TRUE)
-  if (!is.null(old_data)) {
-    detach(old_data, character.only = TRUE)
-  }
+  if (.exists("data_name")) detach(.get("data_name"), character.only = TRUE)
 
   # attach new dataset to environment
   attach(dataset, name = data_name)
