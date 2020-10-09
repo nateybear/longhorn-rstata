@@ -1,11 +1,7 @@
 #' @export
 gen <- function(...) {
-  d <- .data()
-  d <- cbind(d, ...)
+  dataset <- .get("dataset")
+  dataset <- cbind(dataset, ...)
 
-  data_name <- .get("data_name")
-
-  detach(data_name, character.only = TRUE)
-  attach(d, name = data_name)
-  assign("data", d, envir = .rstata_env)
+  .attach(dataset, data_name = .get("data_name"))
 }

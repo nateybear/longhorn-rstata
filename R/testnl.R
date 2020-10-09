@@ -29,7 +29,7 @@
 #' testnl(sqrt(`(Intercept)`))
 #' @export
 testnl <- function(...) {
-  model <- .model()
+  model <- .get("model")
   eval_env <- parent.frame()
   vars <- names(stats::coef(model))
 

@@ -17,8 +17,8 @@
 #'
 #' @export
 regr <- function(formula) { # TODO accept arguments for robust/cluster and level
-  model <- stats::lm(formula, data = .data())
-  assign("model", model, envir = .rstata_env)
+  model <- stats::lm(formula, data = .get("dataset"))
+  .set("model", model)
   print(summary(model)) # TODO quick and dirty, use class behavior
 
   invisible(NULL)
