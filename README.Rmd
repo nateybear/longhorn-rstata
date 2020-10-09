@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-This is a package that attempts to mimic the full suite of Stata used in the ECO394M Econometrics class. The goal is to make the usage of this R package as close to Stata as possible, and to provide the tools so that the naive user can replicate Stata in a non-proprietary language. It is not necessarily the quickest way to do something in R. For that, dig into the code here on GitHub.
+This is a package that attempts to mimic the full suite of Stata used in the ECO394M Econometrics class. The goal is to make the usage of this R package as close to Stata as possible, and to provide the tools so that the naive user can replicate Stata in a non-licensed language. It is not necessarily the quickest way to do something in R. For that, dig into the code here on GitHub.
 
 ## Installation
 
@@ -87,7 +87,7 @@ This includes our first "weird" variable name. Make sure to surround the variabl
 
 ```{r}
 gen(pe_fatheduc = b_(motheduc) + fatheduc * b_(`motheduc:fatheduc`))
-hist(pe_fatheduc)
+hist(pe_fatheduc, breaks = 20)
 ```
 
 ### testnl

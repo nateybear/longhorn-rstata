@@ -10,9 +10,9 @@
 This is a package that attempts to mimic the full suite of Stata used in
 the ECO394M Econometrics class. The goal is to make the usage of this R
 package as close to Stata as possible, and to provide the tools so that
-the naive user can replicate Stata in a non-proprietary language. It is
-not necessarily the quickest way to do something in R. For that, dig
-into the code here on GitHub.
+the naive user can replicate Stata in a non-licensed language. It is not
+necessarily the quickest way to do something in R. For that, dig into
+the code here on GitHub.
 
 ## Installation
 
@@ -68,7 +68,7 @@ This will get filled out with more options as we go along. Have patience
 regr(educ ~ motheduc + fatheduc + abil)
 #> 
 #> Call:
-#> stats::lm(formula = formula, data = .data())
+#> stats::lm(formula = formula, data = .dataset())
 #> 
 #> Residuals:
 #>    Min     1Q Median     3Q    Max 
@@ -111,7 +111,7 @@ mother’s education on the dataset and plot a histogram.
 regr(educ ~ motheduc*fatheduc + abil)
 #> 
 #> Call:
-#> stats::lm(formula = formula, data = .data())
+#> stats::lm(formula = formula, data = .dataset())
 #> 
 #> Residuals:
 #>    Min     1Q Median     3Q    Max 
@@ -138,7 +138,7 @@ the partial effect now and plot a histogram:
 
 ``` r
 gen(pe_fatheduc = b_(motheduc) + fatheduc * b_(`motheduc:fatheduc`))
-hist(pe_fatheduc)
+hist(pe_fatheduc, breaks = 20)
 ```
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
