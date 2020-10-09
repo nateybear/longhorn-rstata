@@ -1,7 +1,7 @@
 #' @export
 gen <- function(...) {
-  dataset <- .get("dataset")
-  dataset <- cbind(dataset, ...)
-
-  .attach(dataset, data_name = .get("data_name"))
+  .attach(
+    dataset = cbind(.get("dataset"), ...),
+    data_name = .get("data_name")
+  )
 }
