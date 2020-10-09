@@ -12,6 +12,12 @@
   data_name = .no_data_err
 )
 
+
+# why almost reproduce basic R commands?
+# it creates a grammar that is more comfortable to use in development,
+# and behavior changes can be implemented here without any changes to
+# calling conventions throughout the package (assuming you get the call
+# signature right).
 .get <- function(var, silent = FALSE, fallback = NULL) {
   if (exists(var, envir = .rstata_env)) {
     get(var, envir = .rstata_env)
@@ -22,8 +28,13 @@
     fallback
   }
 }
-
 .set <- function(varname, value) assign(varname, value, envir = .rstata_env)
+.exists <- function(varname) exists(varname, envir = .rstata_env)
+.rm <- function(varname) {
+  if(.exists(varname)) {
+    rm(varname, envir = .rstata_env)
+  }
+}
 
 # safe way to attach new dataset
 .attach <- function(dataset, data_name, clearModel = FALSE) {
@@ -37,9 +48,7 @@
   attach(dataset, name = data_name)
 
   # if we switched datasets then remove the old regr model from environment
-  if (clearModel && exists("model", envir = .rstata_env)) {
-    rm("model", envir = .rstata_env)
-  }
+  if (clearModel) .rm("model")
 
   # set the new environment variables
   .set("dataset", dataset)
