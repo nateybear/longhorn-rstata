@@ -22,7 +22,11 @@
   if (.exists(varname)) {
     get(varname, envir = .rstata_env)
   } else if (!silent && is.null(fallback)) {
-    errMsg <- ifelse(varname %in% names(.errMsgs), .errMsgs[[varname]], .generic_err(varname))
+    errMsg <- ifelse(
+      varname %in% names(.errMsgs),
+      .errMsgs[[varname]],
+      .generic_err(varname)
+    )
     stop(errMsg)
   } else {
     fallback
