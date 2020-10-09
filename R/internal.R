@@ -16,8 +16,7 @@
 # why almost reproduce basic R commands?
 # it creates a grammar that is more comfortable to use in development,
 # and behavior changes can be implemented here without any changes to
-# calling conventions throughout the package (assuming you get the call
-# signature right).
+# calling conventions throughout the package.
 .get <- function(var, silent = FALSE, fallback = NULL) {
   if (exists(var, envir = .rstata_env)) {
     get(var, envir = .rstata_env)
