@@ -4,6 +4,7 @@
 
 .no_data_err <- "There is no loaded dataset. Please use load() first."
 .no_model_err <- "There is no regression model in the environment. Please use regr() first."
+.generic_err <- function(var) sprintf("Variable %s has not been set. Please consult the documentation for usage.", var)
 
 .errMsgs <- list(
   model = .no_model_err,
@@ -15,7 +16,7 @@
   if (exists(var, envir = .rstata_env)) {
     get(var, envir = .rstata_env)
   } else if (!silent && is.null(fallback)) {
-    errMsg <- ifelse(var %in% names(.errMsgs), .errMsgs[[var]], .no_data_err)
+    errMsg <- ifelse(var %in% names(.errMsgs), .errMsgs[[var]], .generic_err(var))
     stop(errMsg)
   } else {
     fallback
