@@ -1,6 +1,6 @@
 Package: rstata
 Title: A Package for UT Students who Hate Stata
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
     person(given = "Nathan",
            family = "Hattersley",
