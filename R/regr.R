@@ -17,12 +17,12 @@
 #'
 #' @export
 regr <- function(formula) {
-  lm_fit <- stats::lm(formula, data = .get("dataset"))
+  model <- stats::lm(formula, data = .get("dataset"))
 
   # TODO add options for level and vcov type
   model <- rstata_estimator(
-    estimates = lm_fit$coefficients,
-    vcov = sandwich::vcovHC(lm_fit, type = "HC0"),
+    model = model,
+    vcov = sandwich::vcovHC(model, type = "HC0"),
     level = 95
   )
 
