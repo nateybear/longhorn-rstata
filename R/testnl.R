@@ -67,7 +67,7 @@ testnl <- function(...) {
 
   # use delta method to get covariance matrix of our functions
   grad <- gradient(fs)
-  V <- grad %*% sandwich::vcovHC(model, type = "HC1") %*% t(grad)
+  V <- grad %*% stats::vcov(model) %*% t(grad)
 
 
   chisq_stat <- X %*% solve(V) %*% t(X)

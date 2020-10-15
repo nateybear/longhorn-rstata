@@ -46,4 +46,4 @@ regr <- function(formula) {
 #'
 #'
 #' @export
-b_ <- function(v) .get("model")$estimates[deparse(substitute(v))]
+b_ <- function(v) stats::coef(.get("model"))[deparse(substitute(v))]

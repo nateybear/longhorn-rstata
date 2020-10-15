@@ -10,3 +10,6 @@ rstata_estimator <- function(estimates, vcov, level) {
     class = "rstata_estimator"
   )
 }
+
+coef.rstata_estimator <- function(m) m$estimates
+vcov.rstata_estimator <- function(m) m$vcov
