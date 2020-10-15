@@ -16,12 +16,21 @@
 #' regr(mpg ~ wt + disp*cyl)
 #'
 #' @export
-regr <- function(formula) { # TODO accept arguments for robust/cluster and level
-  model <- stats::lm(formula, data = .get("dataset"))
-  .set("model", model)
-  print(summary(model)) # TODO quick and dirty, use class behavior
+regr <- function(formula) {
+  lm_fit <- stats::lm(formula, data = .get("dataset"))
 
-  invisible(NULL)
+  # TODO add options for level and vcov type
+  model <- rstata_estimator(
+    estimates = lm_fit$coefficients,
+    vcov = sandwich::vcovHC(lm_fit, type = "HC0"),
+    level = 95
+  )
+
+  .set("model", model)
+
+  # return this out in case the user wants it. Otherwise it will just invoke print.rstata_estimator,
+  # which will give us the nice coefficient table that we want.
+  model
 }
 
 #' @title
@@ -37,4 +46,4 @@ regr <- function(formula) { # TODO accept arguments for robust/cluster and level
 #'
 #'
 #' @export
-b_ <- function(v) stats::coef(.get("model"))[deparse(substitute(v))]
+b_ <- function(v) .get("model")$estimates[deparse(substitute(v))]
