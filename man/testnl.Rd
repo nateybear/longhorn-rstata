@@ -4,10 +4,12 @@
 \alias{testnl}
 \title{Wald test of multiple hypotheses}
 \usage{
-testnl(...)
+testnl(model, ...)
 }
 \arguments{
-\item{...}{one or more (possibly non-linear) expressions}
+\item{model}{either an lm (assuming homoscedasticity) or a model created with rstata_lm (preferred).}
+
+\item{...}{one or more (possibly non-linear) expressions. Variable names refer to the associated parameters of the model.}
 }
 \description{
 Test linear and non-linear hypotheses of the coefficients of a fitted regression model.
@@ -22,15 +24,14 @@ For "weird" variable names, surround in backticks (see example).
 }
 \examples{
 # fit a model with interations for illustration
-use(datasets::mtcars)
-regr(wt ~ hp * disp)
+model <- rstata_lm(mpg ~ hp*disp, data = datasets::mtcars)
 
 # first, test that hp = disp
-testnl(hp - disp)
+testnl(model, hp - disp)
 
 # then do a full f test (`hp:disp` is the interaction term)
-testnl(hp, disp, `hp:disp`)
+testnl(model, hp, disp, `hp:disp`)
 
 # if you want to test the intercept, it's called (Intercept)
-testnl(sqrt(`(Intercept)`))
+testnl(model, sqrt(`(Intercept)`))
 }
