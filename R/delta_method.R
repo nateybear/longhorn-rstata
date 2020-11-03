@@ -12,17 +12,16 @@ point_estimate <- function(model, fs, eval_env) {
 # NOTE that this is an exact result for linear functions, so don't need a separate method for test and testnl!
 vcov_estimate <- function(model, fs, eval_env) {
   vars <- names(stats::coef(model))
-  # compute a q X k gradient matrix evaluated at beta_hat
-  gradient <- function(fs) {
-    g <- matrix(numeric(0), nrow = length(fs), ncol = length(vars))
-    for (i in 1:length(fs)) {
-      f <- fs[[i]]
-      g[i, ] <- sapply(vars, function(v) plug_in(stats::D(f, v), model, eval_env))
-    }
-    g
-  }
 
-  grad <- gradient(fs)
+  # compute a q X k gradient matrix
+  grad <- sapply(vars, function(v) {
+    sapply(fs, function(f) {
+      plug_in(stats::D(f, v), model, eval_env)
+    })
+  })
+
+  grad <- matrix(grad, ncol = length(vars))
+
   grad %*% stats::vcov(model) %*% t(grad)
 }
 
